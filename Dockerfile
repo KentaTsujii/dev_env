@@ -32,7 +32,8 @@ RUN apt-get update && \
 COPY dotfiles/ /home/ubuntu/
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
-RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh && \
+    chown -R ubuntu /home/ubuntu
 
 WORKDIR /home/ubuntu
 
