@@ -7,7 +7,7 @@ ENV LESSCHARSET "utf-8"
 RUN apt-get update && \
     apt-get install -y software-properties-common && \
     add-apt-repository ppa:git-core/ppa && \
-    apt-get install -y git curl zsh && \
+    apt-get install -y git curl zsh gosu && \
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg && \
     chmod a+r /etc/apt/keyrings/docker.gpg && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
@@ -29,9 +29,14 @@ RUN apt-get update && \
     install lazygit /usr/local/bin && \
     git config --global --add safe.directory '*'
 
-COPY dotfiles/ /root/
+COPY dotfiles/ /home/ubuntu/
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
-WORKDIR /root
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
-ENTRYPOINT ["/usr/bin/zsh"]
+WORKDIR /home/ubuntu
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+CMD ["/usr/bin/zsh"]
 
