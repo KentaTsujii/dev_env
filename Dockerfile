@@ -28,15 +28,12 @@ RUN apt-get update && \
     rm lazygit.tar.gz && \
     install lazygit /usr/local/bin && \
     git config --global --add safe.directory '*' && \
-    gpasswd -a ubuntu systemd-journal
+    gpasswd -a ubuntu systemd-journal && \
+    echo ubuntu:user | chpasswd && \
+    echo "ubuntu   ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 COPY --chown=ubuntu:ubuntu dotfiles/ /home/ubuntu/
 COPY --chmod=777 entrypoint.sh /usr/local/bin/entrypoint.sh
-
-ARG PASSWORD=user
-
-RUN echo ubuntu:$PASSWORD | chpasswd && \
-    echo "ubuntu   ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 WORKDIR /home/ubuntu
 
