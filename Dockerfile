@@ -26,7 +26,8 @@ RUN apt-get update && \
     curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')_Linux_x86_64.tar.gz" && \
     tar xf lazygit.tar.gz lazygit && \
     rm lazygit.tar.gz && \
-    install lazygit /usr/local/bin
+    install lazygit /usr/local/bin && \
+    git config --global --add safe.directory '*'
 
 COPY dotfiles/ /root/
 
