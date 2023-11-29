@@ -2,12 +2,17 @@ FROM ubuntu:23.10
 
 WORKDIR /opt
 
-COPY dotfiles/ /root/
-
 RUN apt-get update && \
     apt-get install -y software-properties-common && \
     add-apt-repository ppa:git-core/ppa && \
     apt-get install -y git curl zsh && \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg && \
+    chmod a+r /etc/apt/keyrings/docker.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+      $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+      tee /etc/apt/sources.list.d/docker.list > /dev/null && \
+    apt-get update && \
+    apt-get -y install docker-ce-cli && \
     curl -LO https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz && \
     tar xzvf nvim-linux64.tar.gz && \
     rm nvim-linux64.tar.gz && \
@@ -20,6 +25,8 @@ RUN apt-get update && \
     tar xf lazygit.tar.gz lazygit && \
     rm lazygit.tar.gz && \
     install lazygit /usr/local/bin
+
+COPY dotfiles/ /root/
 
 WORKDIR /root
 
