@@ -2,6 +2,8 @@ FROM ubuntu:23.10
 
 WORKDIR /opt
 
+ENV LESSCHARSET "utf-8"
+
 RUN apt-get update && \
     apt-get install -y software-properties-common && \
     add-apt-repository ppa:git-core/ppa && \
