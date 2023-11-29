@@ -33,7 +33,8 @@ COPY dotfiles/ /home/ubuntu/
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
 RUN chmod +x /usr/local/bin/entrypoint.sh && \
-    chown -R ubuntu /home/ubuntu
+    chown -R ubuntu /home/ubuntu && \
+    gpasswd -a ubuntu systemd-journal
 
 WORKDIR /home/ubuntu
 
