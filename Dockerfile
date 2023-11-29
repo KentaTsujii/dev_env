@@ -5,7 +5,7 @@ WORKDIR /opt
 ENV LESSCHARSET "utf-8"
 
 RUN apt-get update && \
-    apt-get install -y software-properties-common && \
+    apt-get install -y software-properties-common sudo && \
     add-apt-repository ppa:git-core/ppa && \
     apt-get install -y git curl zsh gosu && \
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg && \
@@ -27,14 +27,16 @@ RUN apt-get update && \
     tar xf lazygit.tar.gz lazygit && \
     rm lazygit.tar.gz && \
     install lazygit /usr/local/bin && \
-    git config --global --add safe.directory '*'
-
-COPY dotfiles/ /home/ubuntu/
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-
-RUN chmod +x /usr/local/bin/entrypoint.sh && \
-    chown -R ubuntu /home/ubuntu && \
+    git config --global --add safe.directory '*' && \
     gpasswd -a ubuntu systemd-journal
+
+COPY --chown=ubuntu:ubuntu dotfiles/ /home/ubuntu/
+COPY --chmod=777 entrypoint.sh /usr/local/bin/entrypoint.sh
+
+ARG PASSWORD=user
+
+RUN echo ubuntu:$PASSWORD | chpasswd && \
+    echo "ubuntu   ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 WORKDIR /home/ubuntu
 
