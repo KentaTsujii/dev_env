@@ -6,7 +6,7 @@
 mkdir -p $HOME/program
 docker stop dev_env
 docker rm dev_env
-docker run --name dev_env \
+docker create --name dev_env \
               -it \
               -v /var/run/docker.sock:/var/run/docker.sock \
               --mount type=bind,source=$HOME/program,target=/home/ubuntu/program \
