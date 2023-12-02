@@ -2,15 +2,20 @@ return {
   'lambdalisue/fern.vim',
   'lambdalisue/fern-git-status.vim',
   'nvim-lua/plenary.nvim',
-  'Shougo/unite.vim',
+  'nvim-treesitter/nvim-treesitter',
   {'akinsho/toggleterm.nvim', version = "*", config = true},
-  {
-   'nvim-telescope/telescope.nvim', 
-   tag = '0.1.4', 
+  {'nvim-telescope/telescope.nvim',
+   tag = '0.1.4',
    dependencies = {'nvim-lua/plenary.nvim'}},
-  --{
-  -- 'neoclide/coc.nvim',
-  -- branch = 'release'
-  --},
+  "neovim/nvim-lspconfig",
+  "williamboman/mason.nvim",
+  "williamboman/mason-lspconfig.nvim",
+  "hrsh7th/nvim-cmp",
+  "hrsh7th/cmp-nvim-lsp",
+  "hrsh7th/vim-vsnip",
+  "hrsh7th/cmp-path",
+  "hrsh7th/cmp-buffer",
+  "hrsh7th/cmp-cmdline",
+  "w0ng/vim-hybrid",
 }
 
