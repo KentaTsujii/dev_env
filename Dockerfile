@@ -1,13 +1,40 @@
 FROM ubuntu:23.10
 
-WORKDIR /opt
-
 ENV LESSCHARSET "utf-8"
+ENV RUST_HOME /usr/local/lib/rust
+ENV RUSTUP_HOME ${RUST_HOME}/rustup
+ENV CARGO_HOME ${RUST_HOME}/cargo
+ENV GOPATH=${HOME}/go
+ENV PATH ${PATH}:${CARGO_HOME}/bin:${GOPATH}/bin
 
-RUN apt-get update && \
-    apt-get install -y software-properties-common sudo && \
+RUN cd /opt && \
+    apt-get update && \
+    apt-get install -y software-properties-common \
+                       sudo \
+                       build-essential \
+                       curl \
+                       wget \
+                       zsh \
+                       zip \
+                       unzip \
+                       gosu \
+                       fd-find \
+                       ripgrep \
+                       trash-cli \
+                       python3-pip \
+                       python3-venv \
+                       nodejs \
+                       npm \
+                       golang-go \
+                       ruby-full \
+                       luarocks && \
+    mkdir /usr/local/lib/rust && \
+    chmod 0755 ${RUST_HOME} && \
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > ${RUST_HOME}/rustup.sh && \
+    chmod +x ${RUST_HOME}/rustup.sh && \
+    ${RUST_HOME}/rustup.sh -y --default-toolchain nightly --no-modify-path && \
     add-apt-repository ppa:git-core/ppa && \
-    apt-get install -y git curl zsh gosu && \
+    apt-get install -y git && \
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg && \
     chmod a+r /etc/apt/keyrings/docker.gpg && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
