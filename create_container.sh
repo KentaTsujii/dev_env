@@ -3,10 +3,12 @@
 # 開発環境コンテナ作成シェル
 #
 
+CONTAINER_NAME=${1:-dev_env}
+
 mkdir -p $HOME/program
 docker stop dev_env
 docker rm dev_env
-docker create --name dev_env \
+docker create --name ${CONTAINER_NAME} \
               -it \
               -v /var/run/docker.sock:/var/run/docker.sock \
               --mount type=bind,source=$HOME/program,target=/home/ubuntu/program \
