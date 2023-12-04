@@ -4,14 +4,13 @@ require('mason').setup {
   ensure_installed = {
     "flake8",
     "isort",
-    "markdownlint-cli2"
+    "markdownlint-cli"
   }
 }
 
 require('mason-lspconfig').setup {
   ensure_installed = {
     "lua_ls",
-    "pyright",
     "efm"
   }
 }
@@ -33,30 +32,33 @@ lspconfig.efm.setup({
       ".git/",
     },
     languages = {
-      python = {
-        --{
-        --  formatCommand = "/home/ubuntu/.local/share/nvim/mason/bin/isort --quiet -"
-        --},
-        {
-          lintCommand = "/home/ubuntu/.local/share/nvim/mason/bin/flake8 --format=%(path)s:%(row)d:%(col)d:%(code)s:%(text)s --stdin-display-name ${INPUT} -"
-        }
-      },
       markdown = {
         {
-          lintCommand = "/home/ubuntu/.local/share/nvim/mason/bin/markdownlint-cli2 ${INPUT}",
-          lintFormats = { "%f:%l %m" },
+          lintIgnoreExitCode = true,
+          lintStdin = true,
+          lintCommand = "markdownlint -s",
+          lintFormats = { "%f:%l %m", "%f:%l:%c %m, %f: %l: %m" },
         },
       },
+      python = {
+        {
+          lintCommand = 'flake8 --stdin-display-name ${INPUT} -',
+          lintStdin = true,
+          lintFormats = { '%f:%l:%c: %m' },
+        },
+        {
+          formatCommand = 'isort -',
+          formatStdin = true
+        }
+      }
     },
   },
   filetypes = {
-    "markdown",
-    "python"
+    "markdown", "python"
   },
 })
 
--- 保存時にlinterが動くように設定
+---- 保存時にlinterが動くように設定
 vim.api.nvim_exec([[
   autocmd BufWrite * lua vim.lsp.buf.format({async=false})
 ]], false)
-
