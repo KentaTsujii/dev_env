@@ -27,6 +27,9 @@ RUN cd /opt && \
                        npm \
                        golang-go \
                        ruby-full \
+                       direnv \
+                       iputils-ping \
+                       net-tools \
                        luarocks && \
     mkdir /usr/local/lib/rust && \
     chmod 0755 ${RUST_HOME} && \
