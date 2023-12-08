@@ -4,7 +4,7 @@ ENV LESSCHARSET "utf-8"
 ENV RUST_HOME /home/ubuntu/.rusthome
 ENV RUSTUP_HOME ${RUST_HOME}/rustup
 ENV CARGO_HOME ${RUST_HOME}/cargo
-ENV GOPATH=${HOME}/go
+ENV GOPATH=/home/ubuntu/go
 ENV PATH ${PATH}:${CARGO_HOME}/bin:${GOPATH}/bin
 ENV SNOWSQL_DEST=/opt
 ENV SNOWSQL_LOGIN_SHELL="~/.profile bash snowsql-1.2.30-linux_x86_64.bash"
@@ -38,6 +38,7 @@ RUN cd /opt && \
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > ${RUST_HOME}/rustup.sh && \
     chmod +x ${RUST_HOME}/rustup.sh && \
     ${RUST_HOME}/rustup.sh -y --default-toolchain nightly --no-modify-path && \
+    chown -R ubuntu:ubuntu ${RUST_HOME} && \
     add-apt-repository ppa:git-core/ppa && \
     apt-get install -y git && \
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg && \
