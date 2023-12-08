@@ -1,7 +1,7 @@
 FROM ubuntu:23.10
 
 ENV LESSCHARSET "utf-8"
-ENV RUST_HOME /usr/local/lib/rust
+ENV RUST_HOME /home/ubuntu/.rusthome
 ENV RUSTUP_HOME ${RUST_HOME}/rustup
 ENV CARGO_HOME ${RUST_HOME}/cargo
 ENV GOPATH=${HOME}/go
