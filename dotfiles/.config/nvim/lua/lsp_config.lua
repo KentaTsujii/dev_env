@@ -58,6 +58,23 @@ lspconfig.efm.setup({
   },
 })
 
+lspconfig.rust_analyzer.setup({
+  settings = {
+    ["rust-analyzer"] = {
+      assist = {
+        importMergeBehavior = "last",
+        importPrefix = "by_self",
+      },
+      cargo = {
+        loadOutDirsFromCheck = true,
+      },
+      procMacro = {
+        enable = true,
+      },
+    }
+  }
+})
+
 ---- 保存時にlinterが動くように設定
 vim.api.nvim_exec([[
   autocmd BufWrite * lua vim.lsp.buf.format({async=false})
