@@ -6,6 +6,8 @@ ENV RUSTUP_HOME ${RUST_HOME}/rustup
 ENV CARGO_HOME ${RUST_HOME}/cargo
 ENV GOPATH=${HOME}/go
 ENV PATH ${PATH}:${CARGO_HOME}/bin:${GOPATH}/bin
+ENV SNOWSQL_DEST=/opt
+ENV SNOWSQL_LOGIN_SHELL="~/.profile bash snowsql-1.2.30-linux_x86_64.bash"
 
 RUN cd /opt && \
     apt-get update && \
@@ -31,7 +33,7 @@ RUN cd /opt && \
                        iputils-ping \
                        net-tools \
                        luarocks && \
-    mkdir /usr/local/lib/rust && \
+    mkdir ${RUST_HOME} && \
     chmod 0755 ${RUST_HOME} && \
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > ${RUST_HOME}/rustup.sh && \
     chmod +x ${RUST_HOME}/rustup.sh && \
