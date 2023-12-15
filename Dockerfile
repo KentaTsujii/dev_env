@@ -8,6 +8,7 @@ ENV GOPATH=/home/ubuntu/go
 ENV PATH ${PATH}:${CARGO_HOME}/bin:${GOPATH}/bin
 ENV SNOWSQL_DEST=/opt
 ENV SNOWSQL_LOGIN_SHELL="~/.profile bash snowsql-1.2.30-linux_x86_64.bash"
+ENV LANG="C.UTF-8"
 
 RUN cd /opt && \
     apt-get update && \
@@ -32,6 +33,7 @@ RUN cd /opt && \
                        direnv \
                        iputils-ping \
                        net-tools \
+                       tmux \
                        luarocks && \
     mkdir ${RUST_HOME} && \
     chmod 0755 ${RUST_HOME} && \
@@ -72,5 +74,5 @@ WORKDIR /home/ubuntu
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
-CMD ["/usr/bin/zsh"]
+CMD ["/usr/bin/tmux", "-u"]
 
