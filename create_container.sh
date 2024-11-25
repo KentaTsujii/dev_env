@@ -10,6 +10,7 @@ docker stop dev_env
 docker rm dev_env
 docker create --name ${CONTAINER_NAME} \
               -it \
+              -p 8080:8080 \
               -v /var/run/docker.sock:/var/run/docker.sock \
               --mount type=bind,source=$HOME/program,target=/home/ubuntu/program \
               --mount type=bind,source=$HOME/.ssh,target=/home/ubuntu/.ssh \
