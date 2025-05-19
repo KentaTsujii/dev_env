@@ -4,7 +4,9 @@ require('mason').setup {
   ensure_installed = {
     "flake8",
     "isort",
-    "markdownlint-cli"
+    "markdownlint-cli",
+    "sqlfluff",
+    "yamllint"
   }
 }
 
@@ -22,6 +24,7 @@ require('mason-lspconfig').setup_handlers {
 }
 
 local lspconfig = require('lspconfig')
+local sqlfluff_lint = require('efmls-configs.linters.sqlfluff')
 lspconfig.efm.setup({
   init_options = {
     documentFormatting = true,
@@ -50,11 +53,19 @@ lspconfig.efm.setup({
           formatCommand = 'isort -',
           formatStdin = true
         }
+      },
+      sql = { sqlfluff_lint },
+      yaml = { -- yamllint の設定を追加
+        {
+          lintCommand = "yamllint -f parsable -c .yamllint -",
+          lintStdin = true,
+          lintFormats = { "%f:%l:%c: %m" },
+        },
       }
     },
   },
   filetypes = {
-    "markdown", "python"
+    "markdown", "python", "sql", "yaml"
   },
 })
 

@@ -1,9 +1,25 @@
 lastupdatecheck: 0
 recentrepos:
-- /home/ubuntu/program/dev_env
-- /home/ubuntu/program/rust-parser-practice
+    - /home/kentatsujii/program/pj-plus-dwh
+    - /home/kentatsujii/program/pj-plus-dwh2
+    - /home/kentatsujii/program/pj-plus-dwh-snowflake-user
+    - /home/kentatsujii/program/github_action_test
+    - /home/kentatsujii/program/dbt-adapters
+    - /home/kentatsujii/program/dbt-adapters-d
+    - /home/kentatsujii/document/plus/pj-plus-dwh-docs
+    - /home/kentatsujii/document/plus/pj-plus-docs
+    - /home/kentatsujii/program/mwaa_test
+    - /home/kentatsujii/program/pj-kracie-infra
+    - /home/kentatsujii/program/doc_test
 startuppopupversion: 5
+lastversion: 0.44.1
 customcommandshistory:
-- q
+    - q
 hidecommandlog: false
 ignorewhitespaceindiffview: false
+diffcontextsize: 3
+renamesimilaritythreshold: 50
+localbranchsortorder: recency
+remotebranchsortorder: alphabetical
+gitlogorder: topo-order
+gitlogshowgraph: always

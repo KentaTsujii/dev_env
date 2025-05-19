@@ -18,6 +18,7 @@ return {
   "hrsh7th/cmp-path",
   "hrsh7th/cmp-buffer",
   "hrsh7th/cmp-cmdline",
+  "creativenull/efmls-configs-nvim",
   "w0ng/vim-hybrid",
   {
     'simrat39/rust-tools.nvim',
